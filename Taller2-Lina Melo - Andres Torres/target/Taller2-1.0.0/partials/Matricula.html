@@ -1,0 +1,92 @@
+
+
+<div class="panel panel-primary" ng-hide="panelEditar">
+    <div class="panel-heading">Parametrizaci&oacute;n de Matricula</div>
+    <div class="panel-body">
+        <div class="btn-group">
+            <button type="button" class="btn btn-default" ng-click="nuevo()">Nueva Matricula</button>
+        </div>
+        <table class="resultados table table-striped">
+            <tr>
+                <th>
+                   Año
+                </th>
+                <th>
+                   Semestre
+                </th>
+                <th>
+                   Estudiante
+                </th>
+                <th>
+                   Materias
+                </th>
+                <th>
+                </th>
+            </tr>
+            <tr ng-repeat="row in lista">
+                <td>{{row.anio}}</td>
+                <td>{{row.semestre}}</td>
+                <td>{{row.estudiante.nombre}}</td>
+                <td class="row"><select disabled size="2" multiple class="form-control" 
+                        ng-model="datosFormulario.materias"
+                        ng-options="option.nombre for option in row.materias">
+                        </select></td>
+                <td class="row">
+                    <button type="button" class="btn btn-default" ng-click="editar(row);searchMat(row.estudiante.carrera)">
+                        <span class="glyphicon glyphicon-pencil"></span>Editar
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="eliminar(row)">
+                        <span class="glyphicon glyphicon-remove"></span>Eliminar
+                    </button>
+                </td>
+            </tr>
+        </table>
+        <br/>
+    </div>
+</div>
+
+<div class="panel panel-primary" ng-show="panelEditar">
+    <div class="panel-heading">Parametrizaci&oacute;n de Carrera</div>
+    <div class="panel-body">
+
+        <div class="form-group col-md-6" ng-class="errores.estudiante ? 'error' : ''">
+            <label for="anio">Año</label>
+            <input id="anio" 
+                   class="form-control" 
+                   type="number"
+                   ng-model="datosFormulario.anio"
+                   placeholder="Año"/>
+            <label for="semestre">Semestre</label>
+            <input id="semestre" 
+                   class="form-control" 
+                   type="number"
+                   ng-model="datosFormulario.semestre"
+                   placeholder="Semestre"/>
+            <label for="estudiante">Estudiante</label>
+            <select id="estudiante" class="form-control" 
+                        ng-model="datosFormulario.estudiante"
+                        ng-change="searchMat(datosFormulario.estudiante.carrera)"
+                        ng-options="option.nombre+' '+option.apellido for option in listaEstudia track by option.id">
+            </select>
+            <label for="materias">Materias</label>
+            <select multiple id="materias" class="form-control" 
+                        ng-model="datosFormulario.materias"
+                        ng-options="option.nombre for option in matCarr track by option.id">
+            </select>
+                
+            <div ng-show="errores.estudiante">{{errores.estudiante}}</div>
+        </div> 
+        <div class="row">
+            <div class="form-group col-md-6" ng-class="errores.facultad ? 'error' : ''">
+                
+                <div ng-show="errores.facultad">{{errores.facultad}}</div>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-default" ng-click="guardar()">Aceptar</button>
+            <button type="button" class="btn btn-default" ng-click="cancelar()">Cancelar</button>
+        </div>    
+    </div>
+</div>
+

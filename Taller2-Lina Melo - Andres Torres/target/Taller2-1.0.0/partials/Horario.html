@@ -1,0 +1,74 @@
+
+
+<div class="panel panel-primary" ng-hide="panelEditar">
+    <div class="panel-heading">Parametrizaci&oacute;n de los horarios</div>
+    <div class="panel-body">
+        <div class="btn-group">
+            <button type="button" class="btn btn-default" ng-click="nuevo()">Nuevo Horario</button>
+        </div>
+        <table class="resultados table table-striped">
+            <tr>
+                <th>
+                    Dia de la semana
+                </th>
+                <th>
+                    Hora de inicio
+                </th>
+                <th>
+                    Hora final
+                </th>
+                <th>
+                </th>
+            </tr>
+            <tr ng-repeat="row in lista">
+                <td>{{row.diaSemana}}</td>
+                <td>{{row.horaInicio}}</td>
+                <td>{{row.horaFinal}}</td>
+                <td class="row">
+                    <button type="button" class="btn btn-default" ng-click="editar(row)">
+                        <span class="glyphicon glyphicon-pencil"></span>Editar
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="eliminar(row)">
+                        <span class="glyphicon glyphicon-remove"></span>Eliminar
+                    </button>
+                </td>
+            </tr>
+        </table>
+        <br/>
+    </div>
+</div>
+
+<div class="panel panel-primary" ng-show="panelEditar">
+    <div class="panel-heading">Parametrizaci&oacute;n de un horario</div>
+    <div class="panel-body">
+
+        <div class="form-group col-md-6" ng-class="errores.nombre ? 'error' : ''">
+            <label for="diaSemana">Dia de la semana</label>
+            <select id="diaSemana" class="form-control" 
+                        ng-model="datosFormulario.diaSemana"
+                        ng-options="x for x in dias">
+            </select>
+            <label for="horaInicio">Hora de inicio</label>
+            <input id="horaInicio" 
+                   class="form-control" 
+                   type="text"
+                   ng-model="datosFormulario.horaInicio"
+                   placeholder="Hora de Inicio"/>
+            <label for="horaFinal">Hora final</label>
+            <input id="horaFinal" 
+                   class="form-control" 
+                   type="text"
+                   ng-model="datosFormulario.horaFinal"
+                   placeholder="Hora Final"/>
+            
+            <div ng-show="errores.diaSemana">{{errores.diaSemana}}</div>
+        </div> 
+        
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-default" ng-click="guardar()">Aceptar</button>
+            <button type="button" class="btn btn-default" ng-click="cancelar()">Cancelar</button>
+        </div>    
+    </div>
+</div>
+
